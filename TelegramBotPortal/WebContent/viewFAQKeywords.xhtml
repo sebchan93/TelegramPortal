@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CPF Welly Telegram FAQ Builder</title>
+</h:head>
+<h:body>
+	<h4>CPF Welly Telegram FAQ Builder</h4>
+	<p:spacer height="30px;" style="width: 1200px;" />
+	<h:form id="faqForm">
+		<div>
+			<p:selectOneMenu id="faqTopic"
+				value="#{createFAQTopicBean.faqTopicKeyword}">
+				<f:selectItem itemLabel="Select Faq Topic" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{createFAQTopicBean.faqTopicFromDB}" />
+			</p:selectOneMenu>
+			<p>
+				<h:commandButton value="Search Topic"
+					action="#{createFAQTopicBean.getFaqTopicQns}" />
+			</p>
+			<br></br>
+			<p:selectOneMenu id="faqTopic2"
+				value="#{createFAQTopicBean.faqKeywordsSearch}">
+				<f:selectItem itemLabel="Select Qns" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{createFAQTopicBean.faqTopicQns}" />
+
+			</p:selectOneMenu>
+		</div>
+		<br></br>
+
+		<p>
+			<h:commandButton value="Search Keyword" action="#{createFAQTopicBean.getFaqQuestionKeywordList}" />
+		</p>
+
+		<p:spacer height="30px;" style="width: 1200px;" />
+
+		<p:dataTable var="o" value="#{createFAQTopicBean.faqList}">
+			<p:column headerText="FAQ Keyword ID">
+				<h:outputText value="#{o.faqKeywordID}" />
+			</p:column>
+
+			<p:column headerText="FAQ Keywords">
+				<h:outputText value="#{o.keywords}" />
+			</p:column>
+
+
+		</p:dataTable>
+		<br></br>
+
+	</h:form>
+
+</h:body>
+</html>

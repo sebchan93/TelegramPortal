@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+  <title>JSF Form Example</title>
+</h:head>
+<h:body>
+<h4>Confirmation Screen</h4>
+  <h:form>
+    <h4>Employee Information System</h4>
+    <table>
+      <tr>
+        <td>Employee Name:</td>
+        <td>
+          <h:outputText value="#{employeeBean.empName}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Gender:</td>
+        <td>
+          <h:outputText value="#{employeeBean.gender}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Date of Birth:</td>
+        <td>
+          <h:outputText value="#{employeeBean.dob}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Marital Status:</td>
+        <td>
+          <h:outputText value="#{employeeBean.maritalStatus}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Address:</td>
+        <td>
+          <h:outputText value="#{employeeBean.address}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Email Address:</td>
+        <td>
+          <h:outputText value="#{employeeBean.emailAddress}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Mobile Number:</td>
+        <td>
+          <h:outputText value="#{employeeBean.mobileNumber}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Designation:</td>
+        <td>
+          <h:outputText value="#{employeeBean.designation}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Department:</td>
+        <td>
+          <h:outputText value="#{employeeBean.department}" />
+        </td>
+      </tr>
+      <tr>
+        <td>Is Permanent?:</td>
+        <td>
+        <h:outputText value="#{employeeBean.employeeType}" />
+        </td>
+      </tr>
+    </table>
+    <p><h:commandButton value="Cancel" action="employee" />
+    <h:commandButton value="Confirm" action="#{employeeBean.storeEmployeeInfo}" /></p>
+  </h:form>
+ </h:body>
+</html>

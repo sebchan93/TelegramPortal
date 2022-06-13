@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>CPF Welly Telegram Bot Builder</title>
+</h:head>
+<h:body>
+        <h4>CPF Welly Telegram Bot Builder</h4>
+       <p:spacer height="30px;" style="width: 1200px;" />
+									 <p:outputLabel  value="Chat Bot Unique ID: " style="padding-left: 16px;"/>
+       	<p:inputText value="#{employeeBean.chatFormID}" readonly="true" style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;"/>
+				 <p:dataTable var="o" value="#{employeeBean.chatFormList}">
+    <p:column headerText="Chat Bot Response">
+      <h:outputText value="#{o.messageTemplate}" />
+    </p:column>
+
+    <p:column headerText="Reply Required">
+      <h:outputText value="#{o.replyRequired}" />
+    </p:column>
+
+    <p:column headerText="Reply variable Type">
+      <h:outputText value="#{o.requestTypeID}" />
+    </p:column>
+
+    <p:column headerText="Error Reply Required">
+      <h:outputText value="#{o.errorReplyRequired}" />
+    </p:column>
+        <p:column headerText="Error message response">
+      <h:outputText value="#{o.errorMessageTemplate}" />
+    </p:column>
+  </p:dataTable>
+    </h:body>
+    </html>

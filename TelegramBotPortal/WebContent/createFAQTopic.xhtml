@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CPF Welly Telegram FAQ Topic</title>
+</h:head>
+<h:body>
+	<h4>CPF Welly Telegram FAQ Topic</h4>
+	<p:spacer height="30px;" style="width: 1200px;" />
+<h:form id="faqForm">
+		<p:outputLabel value="CPF FAQ Topic: " style="padding-left: 0px;" />
+		<p:inputText value="#{createFAQTopicBean.faqTopics}"
+			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
+		<br></br>
+
+	<p>	<h:commandButton value="Create" action="#{createFAQTopicBean.createTopic}"  />
+
+	</p>
+       	<p>	<h:commandButton value="Refresh" action="#{createFAQTopicBean.searchFaqTopics}" style="float: right;" /></p>
+       
+       <p:spacer height="30px;" style="width: 1200px;" />
+
+ <p:dataTable var="o" value="#{createFAQTopicBean.faqTopicList}">
+    <p:column headerText="FAQ ID">
+      <h:outputText value="#{o.faqID}" />
+    </p:column>
+
+    <p:column headerText="FAQ Topic Name">
+      <h:outputText value="#{o.faqTopicName}" />
+    </p:column>
+
+    <p:column headerText="User ID">
+      <h:outputText value="#{o.userID}" />
+    </p:column>
+  </p:dataTable>
+  </h:form>
+  
+</h:body>
+</html>

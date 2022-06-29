@@ -12,38 +12,18 @@
 	<h4>CPF Welly Telegram FAQ Keyword Builder</h4>
 	<p:spacer height="30px;" style="width: 1200px;" />
 <h:form id="faqForm">
-			
-			<p:selectOneMenu id="faqTopic" value="#{createFAQTopicBean.faqTopicsSearch}">
-						<f:selectItem itemLabel="Select Faq Topic" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{createFAQTopicBean.faqTopicFromDB}" />
-						<p>	<h:commandButton value="Search" action="#{createFAQTopicBean.getFaq}"  />
-					</p>
-					</p:selectOneMenu>
-					
+<div >
+					<p:outputLabel value="CPF FAQ Topic: " style="padding-left: 0px;" />
+		<p:inputText value="#{createFAQTopicBean.faqTopics}" required="true" 
+			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
 		<br></br>
 
-	<p>	<h:commandButton value="Search" action="#{createFAQTopicBean.getFaq}"  />
-	</p>
-
-       <p:spacer height="30px;" style="width: 1200px;" />
-
- <p:dataTable var="o" value="#{createFAQTopicBean.faqList}">
-    <p:column headerText="FAQ Template ID">
-      <h:outputText value="#{o.faqTemplateID}" />
-    </p:column>
-    
-    <p:column headerText="FAQ Question">
-      <h:outputText value="#{o.faqQuestion}" />
-    </p:column>
-
-    <p:column headerText="FAQ Answer">
-      <h:outputText value="#{o.faqAnswer}" />
-    </p:column>
-
-  </p:dataTable>
-<br></br>
-  <p:selectOneMenu id="faqTopic1" value="#{createFAQTopicBean.faqTopicInput}">
+	<p>	<h:commandButton value="Create" action="#{createFAQTopicBean.createTopic}"  />	</p>
+			</div>
+			</h:form>
+			
+			<h:form  id="faqForm3">
+			  <p:selectOneMenu id="faqTopic1" value="#{createFAQTopicBean.faqTopicInput}" required="true">
 						<f:selectItem itemLabel="Select Faq Topic" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems value="#{createFAQTopicBean.faqTopicFromDB}" />
@@ -53,18 +33,23 @@
  		<h:outputLabel for="faqquestion" value="FAQ Question: " />
 					<p:inputTextarea rows="5" cols="30" maxlength="500"
 						counterTemplate="{0} characters remaining." autoResize="false"
-						value="#{createFAQTopicBean.faqQuestion}" />
+						value="#{createFAQTopicBean.faqQuestion}" required="true"/>
 					<h:outputLabel for="faqanswer"
 						value="FAQ Answer: " />
 					<p:inputTextarea rows="5" cols="30" maxlength="500"
 						counterTemplate="{0} characters remaining." autoResize="false"
-						value="#{createFAQTopicBean.faqAnswer}"/>
+						value="#{createFAQTopicBean.faqAnswer}" required="true"/>
 											<f:facet name="footer">
 						<h:commandButton value="Create Template"
 							action="#{createFAQTopicBean.createFaqTemplate}" />
 					</f:facet>
   </p:panelGrid>
-  </h:form>
+			</h:form>
+		
+  
+  			<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			</h:form>
   
 </h:body>
 </html>

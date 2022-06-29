@@ -12,9 +12,8 @@
 	<h4>CPF Welly Telegram FAQ Builder</h4>
 	<p:spacer height="30px;" style="width: 1200px;" />
 	<h:form id="faqForm">
-		<div>
 			<p:selectOneMenu id="faqTopic"
-				value="#{createFAQTopicBean.faqTopicKeyword}">
+				value="#{createFAQTopicBean.viewFaqTopicKeyword}">
 				<f:selectItem itemLabel="Select Faq Topic" itemValue=""
 					noSelectionOption="true" />
 				<f:selectItems value="#{createFAQTopicBean.faqTopicFromDB}" />
@@ -23,15 +22,16 @@
 				<h:commandButton value="Search Topic"
 					action="#{createFAQTopicBean.getFaqTopicQns}" />
 			</p>
+			</h:form>
 			<br></br>
+				<h:form id="faqForm3">
 			<p:selectOneMenu id="faqTopic2"
 				value="#{createFAQTopicBean.faqKeywordsSearch}">
 				<f:selectItem itemLabel="Select Qns" itemValue=""
 					noSelectionOption="true" />
-				<f:selectItems value="#{createFAQTopicBean.faqTopicQns}" />
+				<f:selectItems value="#{createFAQTopicBean.faqTopicQuestion}" />
 
 			</p:selectOneMenu>
-		</div>
 		<br></br>
 
 		<p>
@@ -52,8 +52,11 @@
 
 		</p:dataTable>
 		<br></br>
-
 	</h:form>
+     	
+     	<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			</h:form>
 
 </h:body>
 </html>

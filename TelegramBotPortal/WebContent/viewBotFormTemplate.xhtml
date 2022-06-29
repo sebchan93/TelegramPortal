@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>CPF Welly Telegram Bot Builder</title>
+	<title>CPF Welly Telegram FAQ Builder</title>
 </h:head>
 <h:body>
 	<h4>CPF Welly Telegram Bot Builder</h4>
@@ -15,43 +15,37 @@
 		<p:outputLabel value="CPF User ID: " style="padding-left: 0px;" />
 		<p:inputText value="#{searchReplyBean.userID}"
 			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
-		<p:outputLabel value="Telegram Username: " style="padding-left: 16px;" />
-		<p:inputText value="#{searchReplyBean.username}"
-			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
 		<p:outputLabel value="Chat Form ID: " style="padding-left: 16px;" />
 		<p:inputText value="#{searchReplyBean.formID}"
 			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
 		<br></br>
-	<p>	<h:commandButton value="Search" action="#{searchReplyBean.searchReply}"  /></p>
+	<p>	<h:commandButton value="Search" action="#{searchReplyBean.searchFormTemplate}"  /></p>
 
 </h:form>
 
-	<p:dataTable var="o" value="#{searchReplyBean.replyList}">
+	<p:dataTable var="o" value="#{searchReplyBean.detailList}">
 		<p:column headerText="CPF User ID">
 			<h:outputText value="#{o.userID}" />
 		</p:column>
 		<p:column headerText="Chat Form ID">
 			<h:outputText value="#{o.formID}" />
 		</p:column>
-
-		<p:column headerText="Message to Member">
+				<p:column headerText="Chat Form Template Name">
+			<h:outputText value="#{o.chatFormTemplateName}" />
+		</p:column>
+		<p:column headerText="Message to Template">
 			<h:outputText value="#{o.messageTemplate}" />
 		</p:column>
-
-		<p:column headerText="Reply from Member">
-			<h:outputText value="#{o.memberReply}" />
+			<p:column headerText="Message position">
+			<h:outputText value="#{o.position}" />
 		</p:column>
 
-		<p:column headerText="Telegram Username">
-			<h:outputText value="#{o.userName}" />
+			<p:column headerText="Reply Required">
+			<h:outputText value="#{o.replyRequired}" />
 		</p:column>
-
-		<p:column headerText="Member Reply date">
-			<h:outputText value="#{o.memberReplyDate}" />
-		</p:column>
-	</p:dataTable>
+</p:dataTable>
 				<h:form id="form2">
 			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
 			</h:form>
-</h:body>
+    </h:body>
 </html>

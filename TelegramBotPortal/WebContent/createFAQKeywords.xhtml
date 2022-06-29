@@ -12,7 +12,7 @@
 	<h4>CPF Welly Telegram FAQ Builder</h4>
 	<p:spacer height="30px;" style="width: 1200px;" />
 	<h:form id="faqForm">
-		<div>
+	
 			<p:selectOneMenu id="faqTopic"
 				value="#{createFAQTopicBean.createFaqTopicKeyword}">
 				<f:selectItem itemLabel="Select Faq Topic" itemValue=""
@@ -24,26 +24,31 @@
 					action="#{createFAQTopicBean.getCreateFaqTopicQns}" />
 			</p>
 			<br></br>
+				</h:form>
+				<h:form id="faqForm3">
 			<p:selectOneMenu id="faqTopic2"
-				value="#{createFAQTopicBean.faqKeywordsInsert}">
+				value="#{createFAQTopicBean.faqKeywordsInsert}" required="true">
 				<f:selectItem itemLabel="Select Qns" itemValue=""
 					noSelectionOption="true" />
 				<f:selectItems value="#{createFAQTopicBean.createFaqTopicQns}" />
 
 			</p:selectOneMenu>
-		</div>
+	
 		<br></br>
 		<p:panelGrid columns="2">
 			<h:outputLabel for="faqkeyword" value="FAQ Keyword: " />
 			<p:inputTextarea rows="5" cols="30" maxlength="500"
 				counterTemplate="{0} characters remaining." autoResize="false"
-				value="#{createFAQTopicBean.faqTopicKeyword}" />
+				value="#{createFAQTopicBean.faqTopicKeyword}" required="true"/>
 			<f:facet name="footer">
 				<h:commandButton value="Create Keyword"
 					action="#{createFAQTopicBean.createFaqKeyword}" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
-
+			<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			     <h:commandButton  value="View Keywords" action="#{employeeBean.onViewFAQKeywords}" />
+			</h:form>
 </h:body>
 </html>

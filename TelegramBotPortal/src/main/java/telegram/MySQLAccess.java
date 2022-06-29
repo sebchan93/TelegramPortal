@@ -98,7 +98,7 @@ public class MySQLAccess {
 			int position = 1;
 			for (ChatFormDTO e : chatFormList) {
 			int errorRequired = 0;
-			if (e.isErrorReplyRequired() ==  true)	 {
+			if (e.isReplyRequired() ==  true)	 {
 				
 				errorRequired  = 1;
 			}
@@ -197,7 +197,75 @@ public class MySQLAccess {
 
 	    }
 	
-	
+
+	 public List<ChatFormDetailsDTO> getFormTemplate (String formID, String userID) throws Exception {
+	        try {
+	            // This will load the MySQL driver, each DB has its own driver
+	            Class.forName("com.mysql.jdbc.Driver");
+	            // Setup the connection with the DB
+	            connect = DriverManager
+	                    .getConnection("jdbc:mysql://localhost/telegram?"
+	                            + "user=sqluser&password=sqluserpw");
+
+	            // Statements allow to issue SQL queries to the database
+	            statement = connect.createStatement();
+	           
+	            String sql = "SELECT * " 
+                		+ "from telegram.chat_form_template, telegram.chat_message_template  "
+                		+ "where telegram.chat_form_template.chatFormID = telegram.chat_message_template.ChatFormID ";
+	           if( formID.isEmpty() && userID.isEmpty()) {
+	        	   
+	        	   return new ArrayList();
+	           }
+	            
+	 
+	            if (!formID.isEmpty()) {
+	            	sql = sql +FORMIDSQL + formID + "'";
+	            }
+	            
+	            if (!userID.isEmpty()) {
+	            	sql = sql + USERIDSQL + userID + "'";
+	            	
+	            }
+	            System.out.println(sql);
+	            preparedStatement = connect
+	                    .prepareStatement(sql + " ;");
+	            resultSet = preparedStatement.executeQuery();
+	           List <ChatFormDetailsDTO> detailList = new ArrayList();
+	            while (resultSet.next()){
+	                // e.g. resultSet.getSTring(2);
+	            	ChatFormDetailsDTO details= new ChatFormDetailsDTO();
+	            	int chatFormID = resultSet.getInt("ChatFormID");
+	                String messageTemplate = resultSet.getString("MessageTemplate");
+	                int userIdentity = resultSet.getInt("UserID");
+	                String chatFormTemplateName = resultSet.getString("ChatFormTemplateName");
+	                boolean replyRequired = resultSet.getBoolean("ReplyRequired");
+	                int position = resultSet.getInt("Position");
+	                details.setFormID(chatFormID);
+	                details.setMessageTemplate(messageTemplate);
+	                details.setUserID(userIdentity);
+	                details.setChatFormTemplateName(chatFormTemplateName);
+	                details.setPosition(position);
+	                details.setReplyRequired(replyRequired);
+	               
+	                detailList.add(details);
+	            }
+
+	                
+
+	      
+
+
+	            return detailList;
+	        } catch (Exception e) {
+	            throw e;
+	        } finally {
+	            close();
+	        }
+
+	    }
+	 
+	 
 	public void getConfirmation() throws Exception {
 		try {
 			// This will load the MySQL driver, each DB has its own driver

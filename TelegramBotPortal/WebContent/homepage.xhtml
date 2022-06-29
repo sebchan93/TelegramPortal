@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+	<h:head>
+		<title>CPF Welly Telegram Bot Builder</title>
+	</h:head>
+
+	<h:body> 
+		<h:form id="form1">
+			<p:growl id="messages" showDetail="true" />
+			<p:panel header="Chat Bot Builder" >
+	<p:panelGrid columns="3" >
+
+<p:card style="width: 25rem; margin-bottom: 2em ">
+    <f:facet name="title">
+       Build Bot Form
+    </f:facet>
+    
+    <p>Create customisable forms/notice to members</p>
+
+
+      <p:commandLink id="buildBot" action="#{employeeBean.onBuiltBotForm}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to Build a Bot Form"/>
+        </p:commandLink>
+
+</p:card>
+
+<p:card style="width: 25rem; margin-bottom: 2em">
+    <f:facet name="title">
+        View Bot Form Template
+    </f:facet>
+
+    <p>View existing bot forms </p>
+
+      <p:commandLink id="viewBotForm" action="#{employeeBean.onViewBotFormTemplate}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to View a Bot Form"/>
+            
+        </p:commandLink>
+</p:card>
+
+<p:card style="width: 25rem; margin-bottom: 2em">
+    <f:facet name="title">
+        View Bot Form Reply
+    </f:facet>
+
+    <p>View bot form reply by members</p>
+
+      <p:commandLink id="viewReply" action="#{employeeBean.onViewBotReply}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to View a Bot Form Reply"/>
+        </p:commandLink>
+        
+</p:card>
+
+<p:card style="width: 25rem; margin-bottom: 2em">
+    <f:facet name="title">
+        Create FAQ
+    </f:facet>
+
+    <p>Create FAQ topics and questions/answers</p>
+
+      <p:commandLink id="createFAQ" action="#{employeeBean.onCreateFAQ}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to Create a FAQ Template"/>
+        </p:commandLink>
+</p:card>
+
+<p:card style="width: 25rem; margin-bottom: 2em">
+    <f:facet name="title">
+        Create FAQ Keywords
+    </f:facet>
+
+    <p>Tag a keyword to an existing FAQ question</p>
+
+      <p:commandLink id="createFAQKeywords" action="#{employeeBean.onCreateFAQKeywords}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to Create FAQ Keyword"/>
+        </p:commandLink>
+</p:card>
+
+<p:card style="width: 25rem; margin-bottom: 2em">
+    <f:facet name="title">
+        View FAQ Templates
+    </f:facet>
+
+    <p>View existing FAQ questions and answers</p>
+
+      <p:commandLink id="viewFAQ" action="#{employeeBean.onViewFAQ}" style="margin-right:20px;" ajax="false">
+            <h:outputText value="Click to View FAQ Templates"/>
+        </p:commandLink>
+</p:card>
+</p:panelGrid>
+			</p:panel>
+					</h:form>
+	</h:body>
+</f:view>
+
+</html>

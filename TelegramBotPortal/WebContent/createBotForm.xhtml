@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+	<h:head>
+		<title>Build Bot Form</title>
+	</h:head>
+
+	<h:body> 
+		<h:form id="form1">
+			<p:growl id="messages" showDetail="true" />
+			<p:panel header="Chop Chop Bot Form Builder" style="width: 1200px;">
+					 <p:outputLabel  value="Chat Bot Form Template Name: " style="padding-left: 16px;"/>
+       	<p:inputText value="#{employeeBean.chatFormTemplateName}" 
+    required="true" style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;"/>  
+				<p:panelGrid columns="2">
+					<h:outputLabel for="messagetemplate" value="Chat Bot Response: " />
+					<p:inputTextarea rows="5" cols="30" maxlength="500"
+						counterTemplate="{0} characters remaining." autoResize="false"
+						value="#{employeeBean.messageTemplate}" />
+					<h:outputLabel for="responserequired"
+						value="Response from User Required: " />
+					<p:selectOneMenu id="responserequired" value="#{employeeBean.replyR}" required="true">
+						<f:selectItem itemLabel="Select User Response Required" itemValue=""
+							noSelectionOption="true"  />
+						<f:selectItems value="#{employeeBean.replyRequiredList}" />
+					</p:selectOneMenu>
+				
+					<f:facet name="footer">
+						<h:commandButton value="Add Row"
+							action="#{employeeBean.addAction}" />
+					</f:facet>
+				</p:panelGrid>
+				<p:spacer height="30px;" style="width: 1200px;" />
+				<p:dataTable value="#{employeeBean.chatFormList}" var="o"
+					widgetVar="50" editable="true" >
+					<f:facet name="header">  
+                      Chatbot Flow List  
+                    </f:facet>
+					<p:ajax event="rowEdit" listener="#{employeeBean.onEdit(o)}"
+						update=":form1:messages" />
+					<p:ajax event="rowEditCancel"
+						listener="#{employeeBean.onCancel(o)}" update=":form1:messages" />
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Chat Bot Response" />
+						</f:facet>
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:inputTextarea value="#{o.messageTemplate}"  rows="5" cols="25" maxlength="500" id="templateedit" autoResize="true" readonly="true" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputTextarea rows="5" cols="30" maxlength="500"
+									counterTemplate="{0} characters remaining." autoResize="false"
+									value="#{employeeBean.messageTemplate}" style="width:100%" required="true"/>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+				<p:column>
+						<f:facet name="header">
+							<h:outputText value="Response from User Required" />
+						</f:facet>
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:inputText id="replyedit" value="#{o.replyRequired}" readonly="true"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu id="responserequired1" value="#{employeeBean.replyR}" required="true">
+						<f:selectItem itemLabel="Select User Response Required" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{employeeBean.replyRequiredList}" />
+					</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+ 	
+					<p:column headerText="Options" style="width:50px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+   <p> <h:commandButton value="Confirm" action="#{employeeBean.storeTemplate}" /></p>
+		</h:form>
+			<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			</h:form>
+	</h:body>
+</f:view>
+
+</html>

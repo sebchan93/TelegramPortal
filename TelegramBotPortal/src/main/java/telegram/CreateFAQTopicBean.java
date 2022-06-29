@@ -27,7 +27,8 @@ public class CreateFAQTopicBean {
 	private String faqTopicsSearch;
 	private String faqKeywordsSearch;
 	private String faqKeywordsInsert = "";
-	
+	private String viewFaqTopicKeyword;
+	private List <FaqDTO> keywordList;
 
 	public Map <String,Integer> getFaqTopicFromDB() throws Exception {
 		MySQLAccess ms = new MySQLAccess();
@@ -50,6 +51,7 @@ public class CreateFAQTopicBean {
 	
 	public List <FaqDTO> getFaqQuestionKeywordList() throws Exception {
 	//	List <FaqDTO> faqList = new ArrayList();
+		System.out.println(faqKeywordsSearch);
 		if(!faqKeywordsSearch.isEmpty()) {
 		MySQLAccess ms = new MySQLAccess();
 		faqList =  ms.getFaqKeywords(faqKeywordsSearch);
@@ -59,15 +61,17 @@ public class CreateFAQTopicBean {
 	
 	
 	public Map <String,Integer>  getFaqTopicQns() throws Exception {
+		faqTopicQuestion.clear();
 		MySQLAccess ms = new MySQLAccess();
-		if(faqTopicKeyword == null || faqTopicKeyword.isEmpty()) {
+		if(viewFaqTopicKeyword == null || viewFaqTopicKeyword.isEmpty()) {
 			
-			faqTopicKeyword = "0";
+			viewFaqTopicKeyword = "0";
 		}
-		System.out.println(faqTopicKeyword);
-		List <FaqDTO> faqList =  ms.getFaqDetails(faqTopicKeyword);
+		System.out.println(viewFaqTopicKeyword);
+		List <FaqDTO> faqList =  ms.getFaqDetails(viewFaqTopicKeyword);
 		for(FaqDTO e: faqList) {
-			faqTopicQuestion.put(e.getFaqQuestion(),e.getFaqID());
+		
+			faqTopicQuestion.put(e.getFaqQuestion(),e.getFaqTemplateID());
 		
 		}
 		return faqTopicQuestion;
@@ -83,6 +87,7 @@ public class CreateFAQTopicBean {
 		}
 		System.out.println(createFaqTopicKeyword);
 		List <FaqDTO> faqList =  ms.getFaqDetails(createFaqTopicKeyword);
+		faqTopicQuestion.clear();
 		for(FaqDTO e: faqList) {
 			faqTopicQuestion.put(e.getFaqQuestion(),e.getFaqTemplateID());
 		
@@ -93,21 +98,35 @@ public class CreateFAQTopicBean {
 	
 	public List <FaqDTO> getFaqKeyword() throws Exception {
 	//	List <FaqDTO> faqList = new ArrayList();
-		if(!faqTopicsSearch.isEmpty()) {
+		
+		if(!faqKeywordsSearch.isEmpty()) {
 		MySQLAccess ms = new MySQLAccess();
-		faqList =  ms.getFaqDetails(faqTopicsSearch);
+		keywordList =  ms.getFaqKeywords(faqKeywordsSearch);
 		}
-		return faqList;
+		return keywordList;
 	}
 	
 	
 	public String createFaqTemplate() throws Exception {
-		String outcome = "createFAQ.xhtml";
+		String outcome = "viewFAQ.xhtml";
 		FacesMessage message = null;
+		boolean exist = false;
 		if(!faqQuestion.isEmpty()&& !faqAnswer.isEmpty() && !faqTopicInput.isEmpty()) {
 		MySQLAccess ms = new MySQLAccess();
-		ms.insertFaqRecord(faqQuestion,faqAnswer,faqTopicInput);
-		boolean exist = false;
+	List <FaqDTO> faqList	= ms.getFaqDetails(faqTopicInput);
+	if (faqList != null && !faqList.isEmpty()) {
+		for(FaqDTO e: faqList) {
+			if(e.getFaqQuestion() != null && !e.getFaqQuestion().isEmpty()) {
+				if(e.getFaqQuestion().equalsIgnoreCase(faqQuestion)) 
+				{
+					exist = true;
+					break;
+				}
+				
+			} 
+		}
+	}
+	
 		System.out.println(faqTopicInput);
 		/*
 		 * if(list != null && !list.isEmpty()) { for(FaqTopicDTO e : list) {
@@ -115,12 +134,15 @@ public class CreateFAQTopicBean {
 		 * System.out.println(e.getFaqTopicName()); exist = true; break; } } }
 		 */
 		if(exist) {
-			message = new FacesMessage("FAQ topic existed");
+			message = new FacesMessage("FAQ template existed");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+		return "createFAQ.xhtml";
 		}else {
 		
-		message = new FacesMessage("FAQ topic created");
-		FacesContext.getCurrentInstance().addMessage(null, message);;
+		message = new FacesMessage("FAQ template created");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		ms.insertFaqRecord(faqQuestion,faqAnswer,faqTopicInput);
+		return outcome;
 		}
 	}
 		return outcome;
@@ -128,13 +150,28 @@ public class CreateFAQTopicBean {
 	
 	
 	public String createFaqKeyword() throws Exception {
-		String outcome = "createFAQKeywords.xhtml";
+		String outcome = "viewFAQKeywords.xhtml";
 		FacesMessage message = null;
 		if(!faqTopicKeyword.isEmpty()&& !faqKeywordsInsert.isEmpty()) {
 		MySQLAccess ms = new MySQLAccess();
-		ms.insertFaqKeywordRecord(faqTopicKeyword,faqKeywordsInsert);
+		List <FaqDTO> faqList	= ms.getFaqKeywords(faqKeywordsInsert);
 		boolean exist = false;
-		System.out.println(faqTopicKeyword + " "+faqKeywordsInsert);
+		if (faqList != null && !faqList.isEmpty()) {
+			for(FaqDTO e: faqList) {
+				if(e.getKeywords() != null && !e.getKeywords().isEmpty()) {
+					if(e.getKeywords().equalsIgnoreCase(faqTopicKeyword)) 
+					{
+						exist = true;
+						break;
+					}
+					
+				} 
+			}
+		}
+		/*
+		 * ms.insertFaqKeywordRecord(faqTopicKeyword,faqKeywordsInsert);
+		 * System.out.println(faqTopicKeyword + " "+faqKeywordsInsert);
+		 */
 		/*
 		 * if(list != null && !list.isEmpty()) { for(FaqTopicDTO e : list) {
 		 * if(e.getFaqTopicName().equalsIgnoreCase(faqTopics)) {
@@ -143,13 +180,19 @@ public class CreateFAQTopicBean {
 		if(exist) {
 			message = new FacesMessage("FAQ keyword existed");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+		return "createFAQKeywords.xhtml";
 		}else {
 		
 		message = new FacesMessage("FAQ keyword created");
-		FacesContext.getCurrentInstance().addMessage(null, message);;
+		
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		ms.insertFaqKeywordRecord(faqTopicKeyword,faqKeywordsInsert);
+		return outcome;
 		}
 	}
 		faqTopicQuestion.clear();
+		faqTopicKeyword = "";
+		faqKeywordsInsert = "";
 		return outcome;
 	}
 	
@@ -181,13 +224,14 @@ public class CreateFAQTopicBean {
 		if(exist) {
 			message = new FacesMessage("FAQ topic existed");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+		return "createFAQ.xhtml";
 		}else {
 		
 		message = new FacesMessage("FAQ topic created");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		ms.insertFaqTopicRecord(faqTopics);
-		}
 		return outcome;
+		}
 	}
 	
 	public void searchFaqTopics() throws Exception {
@@ -293,6 +337,22 @@ public class CreateFAQTopicBean {
 
 	public void setFaqKeywordsInsert(String faqKeywordsInsert) {
 		this.faqKeywordsInsert = faqKeywordsInsert;
+	}
+
+	public String getViewFaqTopicKeyword() {
+		return viewFaqTopicKeyword;
+	}
+
+	public void setViewFaqTopicKeyword(String viewFaqTopicKeyword) {
+		this.viewFaqTopicKeyword = viewFaqTopicKeyword;
+	}
+
+	public List<FaqDTO> getKeywordList() {
+		return keywordList;
+	}
+
+	public void setKeywordList(List<FaqDTO> keywordList) {
+		this.keywordList = keywordList;
 	}
 	
 	

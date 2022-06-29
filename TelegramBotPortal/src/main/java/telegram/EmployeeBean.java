@@ -38,7 +38,7 @@ public class EmployeeBean {
 	private Map<String, String> replyTypeList;
 	private String chatFormTemplateName;
 	private int chatFormID = 0;
-	
+
 	@PostConstruct
 	public void init() {
 		replyRequiredList = new ArrayList();
@@ -131,11 +131,10 @@ public class EmployeeBean {
 		errorMessageTemplate = null;
 		return null;
 	}
-	
+
 	public void searchReply() {
 
 	}
-
 
 	public void onEdit(ChatFormDTO chat) {
 		FacesMessage msg = new FacesMessage("Item Edited");
@@ -149,7 +148,7 @@ public class EmployeeBean {
 			chat.setRequestTypeID(requestTypeID);
 		}
 		chat.setErrorReplyRequired(replyErrorRequired);
-		
+
 	}
 
 	public void onCancel(ChatFormDTO chat) {
@@ -175,17 +174,9 @@ public class EmployeeBean {
 	}
 
 	public void setChatFormDTO(ChatFormTemplateDTO chatFormDTO) {
-		this.chatFormTemplateDTO = chatFormTemplateDTO;
+		this.chatFormTemplateDTO = chatFormDTO;
 	}
 
-	// Validate Email
-	public void validateEmail(FacesContext context, UIComponent toValidate, Object value) throws ValidatorException {
-		String emailStr = (String) value;
-		if (-1 == emailStr.indexOf("@")) {
-			FacesMessage message = new FacesMessage("Email Address is invalid");
-			throw new ValidatorException(message);
-		}
-	}
 
 	// Action Methods
 	public String storeTemplate() throws Exception {
@@ -195,7 +186,7 @@ public class EmployeeBean {
 		if (stored) {
 			message = new FacesMessage("Employee Information is stored Successfully.");
 			MySQLAccess ms = new MySQLAccess();
-			chatFormID = ms.insertRecord(chatFormList,chatFormTemplateName);
+			chatFormID = ms.insertRecord(chatFormList, chatFormTemplateName);
 			outcome = "success.xhtml";
 		} else {
 			message = new FacesMessage("Employee Information is NOT stored Successfully.");
@@ -204,7 +195,6 @@ public class EmployeeBean {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		return outcome;
 	}
-	
 
 	public String confirm() {
 		return "confirm.xhtml";
@@ -230,6 +220,11 @@ public class EmployeeBean {
 
 	public void setReplyR(String replyR) {
 		this.replyR = replyR;
+		if (replyR.equalsIgnoreCase("True")) {
+			replyRequired = true;
+		} else {
+			replyRequired = false;
+		}
 	}
 
 	public String getReplyE() {
@@ -284,5 +279,34 @@ public class EmployeeBean {
 		this.chatFormID = chatformID;
 	}
 
+	public String onHomePage() {
+		return "homepage.xhtml";
+	}
+	public String onBuiltBotForm() {
+		return "createBotForm.xhtml";
+	}
+	
+	public String onViewBotReply() {
+		return "check-reply.xhtml";
+	}
+	
+	public String onCreateFAQ() {
+		return "createFAQ.xhtml";
+	}
+	
+	public String onCreateFAQKeywords() {
+		return "createFAQKeywords.xhtml";
+	}
+	
+	public String onViewFAQ() {
+		return "viewFAQ.xhtml";
+	}
+	
+	public String onViewFAQKeywords() {
+		return "viewFAQKeywords.xhtml";
+	}
+	public String onViewBotFormTemplate() {
+		return "viewBotFormTemplate.xhtml";
+	}
 	
 }

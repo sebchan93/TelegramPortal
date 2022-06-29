@@ -15,6 +15,7 @@ public class SearchReplyBean {
 	private String userID;
 
 	private List<ReplyDTO> replyList;
+	private List <ChatFormDetailsDTO> detailList;
 
 	@PostConstruct
 	public void init() {
@@ -52,6 +53,12 @@ public class SearchReplyBean {
 		MySQLAccess ms = new MySQLAccess();
 		replyList = ms.getReplyDetails(username, formID, userID);
 	}
+	
+	public void searchFormTemplate() throws Exception {
+
+		MySQLAccess ms = new MySQLAccess();
+		detailList = ms.getFormTemplate( formID, userID);
+	}
 
 	public List<ReplyDTO> getReplyList() {
 		return replyList;
@@ -59,6 +66,14 @@ public class SearchReplyBean {
 
 	public void setReplyList(List<ReplyDTO> replyList) {
 		this.replyList = replyList;
+	}
+
+	public List<ChatFormDetailsDTO> getDetailList() {
+		return detailList;
+	}
+
+	public void setDetailList(List<ChatFormDetailsDTO> detailList) {
+		this.detailList = detailList;
 	}
 
 }

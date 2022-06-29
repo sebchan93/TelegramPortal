@@ -22,16 +22,9 @@
       <h:outputText value="#{o.replyRequired}" />
     </p:column>
 
-    <p:column headerText="Reply variable Type">
-      <h:outputText value="#{o.requestTypeID}" />
-    </p:column>
-
-    <p:column headerText="Error Reply Required">
-      <h:outputText value="#{o.errorReplyRequired}" />
-    </p:column>
-        <p:column headerText="Error message response">
-      <h:outputText value="#{o.errorMessageTemplate}" />
-    </p:column>
   </p:dataTable>
+  			<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			</h:form>
     </h:body>
     </html>

@@ -12,14 +12,7 @@
 	<h4>CPF Welly Telegram FAQ Topic</h4>
 	<p:spacer height="30px;" style="width: 1200px;" />
 <h:form id="faqForm">
-		<p:outputLabel value="CPF FAQ Topic: " style="padding-left: 0px;" />
-		<p:inputText value="#{createFAQTopicBean.faqTopics}"
-			style="padding-left: 8px;border-left-width: 1px;margin-left: 20px;margin-bottom: 8px;" />
-		<br></br>
 
-	<p>	<h:commandButton value="Create" action="#{createFAQTopicBean.createTopic}"  />
-
-	</p>
        	<p>	<h:commandButton value="Refresh" action="#{createFAQTopicBean.searchFaqTopics}" style="float: right;" /></p>
        
        <p:spacer height="30px;" style="width: 1200px;" />
@@ -38,6 +31,8 @@
     </p:column>
   </p:dataTable>
   </h:form>
-  
+   			<h:form id="form2">
+			    <h:commandButton  value="Home" action="#{employeeBean.onHomePage}" />
+			</h:form>
 </h:body>
 </html>
